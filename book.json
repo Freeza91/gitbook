@@ -23,7 +23,7 @@
 
     "pluginsConfig": {
         "sitemap-general": {
-            "prefix": "https://bixin.im/doc"
+            "prefix": "https://open.bixin.im/doc"
         }
     }
 }
