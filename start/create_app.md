@@ -1,1 +1,36 @@
-创建应用
+# 创建应用号
+
+## Vendor介绍
+
+Vendor是第三方在币信网站对授权用户信息和资金进行管理的一个媒介。通过创建Vendor，可以获取币信授权用户的ID、头像、用户名等个人信息和对授权用户发起转入Vendor资金、Vendor资金转出到用户的操作；也可以对授权用户入账资金进行托管,很方便的查看托管资金出入账的流水账单.
+
+## 申请vendor
+在币信官网打开创建vendor页面[https://bixin.im/openplatform](https://bixin.im/openplatform), 如果还未在币信App做实名认证，则需要去做实名认证。
+完成实名认证后，点击创建应用，进去创建页面, 依照要求填写您的应用内容。如下图：
+![image](https://raw.githubusercontent.com/haobtc/openplatform/master/images/create_vendor.png)
+
+相关参数介绍：
+
+| 名称(name) | 描述(description) |
+| --------- | ----------------- |
+| 应用账号   | 必填. 账号唯一.|
+| 应用名字   | 必填.|
+| 应用图标   | 选填. |
+| 应用描述   | 选填. |
+| 网站网址   | 用户授权完成后或者在服务号页面点击"应用网站"，App跳转的网址|
+| Webhook    | 选填. 币信平台vendor相关事件触发后(用户扫码登录，用户转账等)，币信会调用Vendor的callback_url通知|
+| Bot回调网址|选填.当服务号内发生用户事件时，币信平台通知第三方|
+
+填写完毕后可以看到右侧区域的一些重要数据信息。相关参数介绍：
+
+| 名称(name) | 描述(description) |
+| --------- | ----------------- |
+| Vendor Address   | 数字货币(BTC)地址.|
+| Vendor Secret   | 可用来获取Vendor Access Token|
+| Vendor AES Key   | 加密和解密WebHook Callback中的数据|
+| Bot AES Key   | 加密和解密Bot和币信交互的数据 |
+| Bot Access Token | Bot和币信交互的权限认证|
+| Target Id | Bot对应的Id|
+
+
+
