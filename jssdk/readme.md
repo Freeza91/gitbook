@@ -48,6 +48,8 @@ bixin.error(function(res) {
 });
 ```
 
+## API介绍
+
 ### 调用币信支付
 
 ```
@@ -58,17 +60,13 @@ bixin.openPay({
       recipientAddr: '15Rxxxxx',
       note: 'pay to friend'，
       category: data.category,
-      currency: 'BTC',
-      arg0: data.arg0,
-      arg1: data.arg1,
-      arg2: data.arg2,
-      arg3: data.arg3,
-      arg4: data.arg4,
-      arg5: data.arg5,
-      arg6: data.arg6,
-      arg7: data.arg7,
-      arg8: data.arg8,
-      arg9: data.arg9,
+      order_id: data.order_id,
+      message: data.message,
+      transfer_type: data.transfer_type,
+      //商户可自定义参数，我们后端会做保存
+      // 可自定义多个参数，参数个数不超过10个
+      //自定义参数的格式是以"x-"开头，比如
+      // 'x-name': 'your-name'
       success: function(res) {
       },
       error: function(err) {
@@ -78,9 +76,6 @@ bixin.openPay({
 });
 ```
 recipientAddr 是收款方的地址。
-
-args0 ... args9 是转账信息备注
-
 
 ### 调用币信扫码
 
@@ -98,18 +93,22 @@ bixin.scanQRCode({
 
 ```
 bixin.chooseContact({
-    type: "user",   // 支持 "user", "group", "bot"
-    success: function(res) {
-        console.log(res); // user object
+    success: function(contact) {
+      var target_id = contact.targetId
+      var conv_type = contact.conv_type
+      // 其他信息还包括: name, title, avatarUrl
     }
 });
 ```
 ### 打开对话框
 
+#### 打开并发送文本(文本为空时则不发送自定义内容)
+
 ```
 bixin.openConv({
     targetId: target_id,
     convType: conv_type,
+    text: text
     success: function(res){
     },
     cancel: function(res){
@@ -119,3 +118,59 @@ bixin.openConv({
 });
 
 ```
+
+#### 打开并发送事件(发送事件时，必须携带文本)
+
+```
+bixin.openConv({
+    targetId: target_id,
+    convType: conv_type,
+    event: event,
+    text: text,
+    success: function(res){
+    },
+    cancel: function(res){
+    },
+    fail: function(res) {
+    }
+});
+
+```
+
+#### 转发消息内容给某个联系人或群组
+
+```
+bixin.sendMiniArticle({
+    url: url, // 用户点击可访问的url
+    bot_id: bot_target_id, // 商户自己的bot target id
+    target_id: user_target_id, // 接受者的target id
+    conv_type: conv_type, // 支持两种类型：private, group
+    title: title,
+    desc: desc,
+    image_url: image_url,
+    success: function(res){
+      console.log(res);
+    }
+});
+```
+如果让用户选择联系人之后再对选择的人或者群组转发可使用chooseContact在调用sendMiniArticle
+
+```
+function share_article(url, bot_target_id, title, desc, image_url){
+  env_exec(function(){
+    bixin.chooseContact({
+      success: function(contact) {
+
+        var target_id = contact.targetId;
+        var conv_type = contact.convType; //可选为: private, bot, group,
+
+        send_min_article(url, bot_target_id, target_id, conv_type,
+                         title, desc, image_url);
+      }
+    });
+  })
+}
+```
+### 代码demo
+
+[参考](https://github.com/haobtc/openplatform/blob/master/openplatform/servicer/static/js/bot.js)

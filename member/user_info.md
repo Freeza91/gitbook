@@ -1,6 +1,6 @@
 ## 获取用户信息
 
-获取用户的详细信息，必须携带access_token, 获取access_token[详见](./获取Access_Token.md)
+获取用户的详细信息，必须携带access_token, 获取access_token[详见](./appendix/access_token.md)
 
 ```
 GET https://bixin.im/platform/api/v1/user/:user_id?access_token=30e57a621fa2474c914ac7ca6c85cc18
