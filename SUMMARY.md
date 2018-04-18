@@ -6,7 +6,6 @@
   - [创建应用](start/create_app.md)
 - [会员](member/readme.md)
   - [币信授权](member/authentication.md)
-  - [用户信息](member/user_info.md)
 - [offchain-支付](offchain-payment/readme.md)
   - [服务号支付](offchain-payment/bot_payment.md)
   - [h5支付](offchain-payment/h5_payment.md)
